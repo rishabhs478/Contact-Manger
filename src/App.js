@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "./context";
 import AddContact from "./Component/contacts/AddContact";
 import EditContact from "./Component/contacts/EditContact";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import About from "./Component/pages/About";
 import NotFound from "./Component/pages/NotFound";
 import Test from "./Component/test/Test";
