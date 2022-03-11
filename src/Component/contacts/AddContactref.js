@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 
 class AddContact extends Component {
-    constructor(props){
-        super(props);
-        this.nameInput=React.createRef();
-        this.emailInput=React.createRef();
-        this.phoneInput=React.createRef();
-    }
+  
+  constructor(props) {
+    super(props);
+    this.nameInput = React.createRef();
+    this.emailInput = React.createRef();
+    this.phoneInput = React.createRef();
+  }
   onSubmit = (e) => {
     e.preventDefault();
-    const contact={
-        name:this.nameInput.current.value,
-        email:this.emailInput.current.value,
-        phone:this.phoneInput.current.value,
-    }
-   console.log(contact);
+    const contact = {
+      name: this.nameInput.current.value,
+      email: this.emailInput.current.value,
+      phone: this.phoneInput.current.value,
+    };
+    console.log(contact);
   };
   static defaultProps = {
     name: "rishabh",

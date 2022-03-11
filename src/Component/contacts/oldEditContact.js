@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Consumer } from "../../context";
-
 import TextInputGroup from "../layout/TextInputGroup";
 import axios from "axios";
 
@@ -16,7 +15,6 @@ class EditContact extends Component {
     const res = await axios.get(
       "https://jsonplaceholder.typicode.com/users/${id}"
     );
-
     const contact = res.data;
 
     this.setState({
@@ -25,97 +23,95 @@ class EditContact extends Component {
       phone: contact.phone,
     });
   }
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
-
   onSubmit = async (dispatch, e) => {
     e.preventDefault();
+
     const { name, email, phone } = this.state;
+
+    // Check For Errors
     if (name === "") {
-      this.setState({ errors: { name: "Name is requird" } });
+      this.setState({ errors: { name: "Name is required" } });
       return;
     }
+
     if (email === "") {
-      this.setState({ errors: { email: "email is requird" } });
+      this.setState({ errors: { email: "Email is required" } });
       return;
     }
+
     if (phone === "") {
-      this.setState({ errors: { phone: "Phone is requird" } });
+      this.setState({ errors: { phone: "Phone is required" } });
       return;
     }
+
     const updContact = {
       name,
       email,
-      phone,
+      phone
     };
+
     const { id } = this.props.match.params;
 
     const res = await axios.put(
-      `https://jsonplaceholder.typicode.com/users/${id}`,
+      "https://jsonplaceholder.typicode.com/users/${id}",
       updContact
     );
     dispatch({ type: "UPDATE_CONTACT", payload: res.data });
 
+    //// UPDATE CONTACT ////
+
+    // Clear State
     this.setState({
       name: "",
       email: "",
       phone: "",
-
-      error: {},
+      errors: {},
     });
     this.props.history.push("/");
   };
 
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
   render() {
     const { name, email, phone, errors } = this.state;
     return (
       <Consumer>
         {(value) => {
           const { dispatch } = value;
-
           return (
             <div className="card mb-3">
-              <div className="card-Header">Edit Contact</div>
+              <div className="card-header">Edit Contact</div>
               <div className="card-body">
                 <form onSubmit={this.onSubmit.bind(this, dispatch)}>
-                  <div className="form-group">
-                    
-                    <TextInputGroup
-                      label="Name"
-                      name="name"
-                      placeholder="Enter Name"
-                      error={errors.name}
-                      value={name}
-                      onChange={this.onChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    
-                    <TextInputGroup
-                      label="Email"
-                      name="email"
-                      type="email"
-                      placeholder="Enter Email"
-                      value={email}
-                      onChange={this.onChange}
-                      error={errors.email}
-                    />
-                  </div>
-                  <div className="form-group">
-                    
-                    <TextInputGroup
-                      label="Phone"
-                      name="phone"
-                      placeholder="Enter Phone"
-                      value={phone}
-                      onChange={this.onChange}
-                      error={errors.phone}
-                    />
-                  </div>
+                  <TextInputGroup
+                    label="Name"
+                    name="name"
+                    placeholder="Enter Name"
+                    value={name}
+                    onchange={this.onChange}
+                    error={errors.name}
+                  />
+                  <TextInputGroup
+                    label="Email"
+                    name="email"
+                    type="email"
+                    placeholder="Enter Email"
+                    value={email}
+                    onchange={this.onChange}
+                    error={errors.email}
+                  />
+                  <TextInputGroup
+                    label="Phone"
+                    name="Phone"
+                    placeholder="Enter Phone"
+                    value={phone}
+                    onchange={this.onChange}
+                    error={errors.phone}
+                  />
 
                   <input
-                    type="submit"
+                    type="Submit"
                     value="Update Contact"
-                    className="btn btn-block btn-success  my-3"
+                    className="btn btn-primary btn-block mt-3"
                   />
                 </form>
               </div>
