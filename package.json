@@ -1,7 +1,7 @@
 {
   "name": "myfirst",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage":"https://rishabhs478.github.io/contactmanager",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
